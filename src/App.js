@@ -70,7 +70,9 @@ export default function App() {
         <CssBaseline />
         <div className="App">
           {file && <DwvComponent file={file}/>}
-          {url && <iframe src={url} width="100%" height="100%"></iframe>}
+          {url && <div className='container'>
+            <iframe className='responsive-iframe' src={url} width="100%" height="100%"></iframe> 
+          </div>}
 
         </div>
       </ThemeProvider>
