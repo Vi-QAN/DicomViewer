@@ -263,7 +263,7 @@ class DwvComponent extends React.Component {
     this.setupDropbox(app);
 
     // possible load from location
-    app.loadFromUri(window.location.href);
+    app.loadFiles([this.props.file])
   }
 
   /**
