@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/DicomViewer/static/css/main.f3a3ad3d.css",
+    "main.js": "/DicomViewer/static/js/main.60552a0b.js",
+    "service-worker.js": "/DicomViewer/service-worker.js",
+    "index.html": "/DicomViewer/index.html",
+    "main.f3a3ad3d.css.map": "/DicomViewer/static/css/main.f3a3ad3d.css.map",
+    "main.60552a0b.js.map": "/DicomViewer/static/js/main.60552a0b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f3a3ad3d.css",
+    "static/js/main.60552a0b.js"
+  ]
+}
