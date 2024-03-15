@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/DicomViewer/static/css/main.0a267cb3.css",
-    "main.js": "/DicomViewer/static/js/main.88a43b22.js",
+    "main.js": "/DicomViewer/static/js/main.a959c45f.js",
     "service-worker.js": "/DicomViewer/service-worker.js",
     "index.html": "/DicomViewer/index.html"
   },
   "entrypoints": [
     "static/css/main.0a267cb3.css",
-    "static/js/main.88a43b22.js"
+    "static/js/main.a959c45f.js"
   ]
 }
