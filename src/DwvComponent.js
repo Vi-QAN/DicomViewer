@@ -20,6 +20,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import StraightenIcon from '@mui/icons-material/Straighten';
 import CameraswitchIcon from '@mui/icons-material/Cameraswitch';
+import CheckIcon from '@mui/icons-material/Check';
+import SaveIcon from '@mui/icons-material/Save';
 
 import Dialog from '@mui/material/Dialog';
 import AppBar from '@mui/material/AppBar';
@@ -28,11 +30,13 @@ import Toolbar from '@mui/material/Toolbar';
 
 import TagsTable from './TagsTable';
 
+import _ from 'lodash';
+
 import './DwvComponent.css';
 import {
   App,
   getDwvVersion,
-  decoderScripts
+  decoderScripts,
 } from 'dwv';
 
 // Image decoders (for web workers)
@@ -84,7 +88,13 @@ class DwvComponent extends React.Component {
       dropboxDivId: 'dropBox',
       dropboxClassName: 'dropBox',
       borderClassName: 'dropBoxBorder',
-      hoverClassName: 'hover'
+      hoverClassName: 'hover',
+      viewState: {},
+      drawState: {
+        drawings: [],
+        drawingsDetails: {},
+
+      }
     };
   }
 
@@ -107,7 +117,7 @@ class DwvComponent extends React.Component {
     });
 
     return (
-      <div id="dwv">
+      <div id="dwv" >
         <LinearProgress variant="determinate" value={loadProgress} />
         <Stack direction="row" spacing={1} padding={1} justifyContent="center">
           <ToggleButtonGroup size="small"
@@ -139,6 +149,18 @@ class DwvComponent extends React.Component {
             disabled={!dataLoaded}
             onClick={this.handleTagsDialogOpen}
           ><LibraryBooksIcon /></ToggleButton>
+          <ToggleButton size="small"
+            value="apply"
+            title="Apply State"
+            disabled={!dataLoaded}
+            onClick={this.onApplyState}
+          ><CheckIcon /></ToggleButton>
+          <ToggleButton size="small"
+            value="save"
+            title="Save State"
+            disabled={!dataLoaded}
+            onClick={this.onSaveState}
+          ><SaveIcon /></ToggleButton>
 
           <Dialog
             open={this.state.showDicomTags}
@@ -188,6 +210,22 @@ class DwvComponent extends React.Component {
       "dataViewConfigs": {'*': [{divId: 'layerGroup0'}]},
       "tools": this.state.tools
     });
+    
+    app.addEventListener('wlchange', (event) => {
+      this.setState({viewState: event})
+    })
+
+    app.addEventListener('drawchange', (event) => {
+      console.log(event)
+    })
+
+    app.addEventListener('drawcreate', (event) => {
+      // this.setState({drawState: [...this.state.drawState, event]})
+    })
+
+    app.addEventListener('drawmove',(event) => {
+      console.log(event);
+    })
 
     // load events
     let nLoadItem = null;
@@ -264,6 +302,34 @@ class DwvComponent extends React.Component {
 
     // possible load from location
     app.loadFiles([this.props.file])
+  }
+
+  onSaveState = () => {
+    this.props.handleWindowLevelChange(this.state.viewState);
+    const layerGroup = this.state.dwvApp.getLayerGroupByDivId('layerGroup0');
+    const drawLayer = layerGroup.getActiveDrawLayer();
+    const draw = { 
+      drawings: _.cloneDeep(drawLayer.getDrawController().getDrawDisplayDetails()),
+      drawingsDetails: _.cloneDeep(drawLayer.getDrawController().getDrawStoreDetails()),
+      posGroups: _.cloneDeep(drawLayer.getDrawController().getCurrentPosGroup())
+    }
+    this.props.handleDrawingsChange(draw)
+    
+  }
+
+  onApplyState = () => {
+    if (!this.state.dwvApp && !this.props.windowLevelState && !this.props.drawings) return
+    const wl = this.props.windowLevelState
+    // console.log(wl)
+
+    const layerGroup = this.state.dwvApp.getLayerGroupByDivId('layerGroup0');
+    console.log(this.props.drawings);
+    const drawLayer = layerGroup.getActiveDrawLayer();
+    const controller = drawLayer.getDrawController();
+    controller.setDrawings(this.props.drawings.posGroups,this.props.drawings.drawings, () => {console.log('empty'), () => {console.log('executed')}});
+    // var viewLayer = layerGroup.getActiveViewLayer();
+    // viewLayer.getViewController().setWindowLevel(wl.wc,wl.ww);
+    
   }
 
   /**

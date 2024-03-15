@@ -1,4 +1,5 @@
 {
+  "homepage": "https://Vi-QAN.github.io/DicomViewer",
   "name": "dwv-react",
   "version": "0.8.0-beta",
   "description": "Medical viewer using DWV (DICOM Web Viewer) and React.",
@@ -12,15 +13,25 @@
     "@mui/material": "^5.15.12",
     "@mui/styles": "^5.15.12",
     "dwv": "0.32.3",
+    "gh-pages": "^6.1.1",
+    "html2canvas": "^1.4.1",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "use-react-screenshot": "^4.0.0"
   },
   "devDependencies": {
-    "canvas": "^2.11.2"
+    "@types/node": "^20.11.25",
+    "canvas": "^2.11.2",
+    "esm": "^3.2.25",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.2"
   },
   "scripts": {
     "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "build-trunk": "PUBLIC_URL=/dwv-react/demo/trunk/ react-scripts build",
     "build-stable": "PUBLIC_URL=/dwv-react/demo/stable/ react-scripts build",
