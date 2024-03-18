@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.css": "/DicomViewer/static/css/main.0a267cb3.css",
-    "main.js": "/DicomViewer/static/js/main.a959c45f.js",
+    "main.css": "/DicomViewer/static/css/main.217bb461.css",
+    "main.js": "/DicomViewer/static/js/main.e2e7183a.js",
     "service-worker.js": "/DicomViewer/service-worker.js",
     "index.html": "/DicomViewer/index.html"
   },
   "entrypoints": [
-    "static/css/main.0a267cb3.css",
-    "static/js/main.a959c45f.js"
+    "static/css/main.217bb461.css",
+    "static/js/main.e2e7183a.js"
   ]
 }
