@@ -26,7 +26,7 @@
     "canvas": "^2.11.2",
     "esm": "^3.2.25",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.4"
   },
   "scripts": {
     "start": "react-scripts start",
