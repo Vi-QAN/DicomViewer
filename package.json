@@ -22,7 +22,7 @@
     "use-react-screenshot": "^4.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.11.30",
+    "@types/node": "^20.12.11",
     "canvas": "^2.11.2",
     "esm": "^3.2.25",
     "ts-node": "^10.9.2",
